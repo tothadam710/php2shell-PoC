@@ -1,0 +1,23 @@
+version: '3.8'
+services:
+  php-vuln-app:
+    build: .
+    ports:
+      - "8080:80"
+    environment:
+      - APACHE_RUN_USER=www-data
+    networks:
+      - evilnet
+
+  kali:
+    image: kalilinux/kali-rolling
+    container_name: kali-lab
+    stdin_open: true
+    tty: true
+    command: [ "bash" ]
+    networks:
+      - evilnet
+
+networks:
+  evilnet:
+    driver: bridge
